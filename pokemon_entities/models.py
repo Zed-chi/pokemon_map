@@ -7,9 +7,19 @@ class Pokemon(models.Model):
     title_ru = models.CharField(max_length=200, default="")
     description = models.TextField(default="")
     previous_evolution = models.ForeignKey(
-        Pokemon, on_delete=models.CASCADE, null=True, blank=True
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="previous",
     )
-    next_evolution = models.ForeignKey(Pokemon, null=True, blank=True)
+    next_evolution = models.ForeignKey(
+        "self",
+        on_delete=models.DO_NOTHING,
+        null=True,
+        blank=True,
+        related_name="next",
+    )
     image = models.ImageField(
         upload_to="./images", max_length=100, null=True, blank=True
     )
