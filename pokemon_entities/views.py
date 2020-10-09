@@ -2,7 +2,7 @@ import folium
 import json
 
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import PokemonEntity, Pokemon
 
 
@@ -39,7 +39,9 @@ def show_all_pokemons(request):
         pokemons_on_page.append(
             {
                 "pokemon_id": entity.pokemon.id,
-                "img_url": entity.pokemon.image.url,
+                "img_url": request.build_absolute_uri(
+                    entity.pokemon.image.url
+                ),
                 "title_ru": entity.pokemon.title,
             }
         )
@@ -55,28 +57,29 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    with open("pokemon_entities/pokemons.json", encoding="utf-8") as database:
-        pokemons = json.load(database)["pokemons"]
+    pokemon = get_object_or_404(Pokemon, id=pokemon_id)
+    # return HttpResponseNotFound("<h1>Такой покемон не найден</h1>")
 
-    for pokemon in pokemons:
-        if pokemon["pokemon_id"] == int(pokemon_id):
-            requested_pokemon = pokemon
-            break
-    else:
-        return HttpResponseNotFound("<h1>Такой покемон не найден</h1>")
-
+    entities = PokemonEntity.objects.filter(pokemon__id=pokemon_id)
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    for pokemon_entity in requested_pokemon["entities"]:
+    for pokemon_entity in entities:
         add_pokemon(
             folium_map,
-            pokemon_entity["lat"],
-            pokemon_entity["lon"],
-            pokemon["title_ru"],
-            pokemon["img_url"],
+            pokemon_entity.lat,
+            pokemon_entity.lon,
+            pokemon_entity.pokemon.title,
+            request.build_absolute_uri(pokemon_entity.pokemon.image.url),
         )
 
     return render(
         request,
         "pokemon.html",
-        context={"map": folium_map._repr_html_(), "pokemon": pokemon},
+        context={
+            "map": folium_map._repr_html_(),
+            "pokemon": {
+                "pokemon_id": pokemon.id,
+                "img_url": request.build_absolute_uri(pokemon.image.url),
+                "title_ru": pokemon.title,
+            },
+        },
     )
