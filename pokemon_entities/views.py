@@ -33,7 +33,7 @@ def show_all_pokemons(request):
             folium_map,
             entity.lat,
             entity.lon,
-            entity.pokemon.title,
+            entity.pokemon.title_ru,
             entity.pokemon.image.path,
         )
         pokemons_on_page.append(
@@ -42,7 +42,7 @@ def show_all_pokemons(request):
                 "img_url": request.build_absolute_uri(
                     entity.pokemon.image.url
                 ),
-                "title_ru": entity.pokemon.title,
+                "title_ru": entity.pokemon.title_ru,
             }
         )
 
@@ -67,7 +67,7 @@ def show_pokemon(request, pokemon_id):
             folium_map,
             pokemon_entity.lat,
             pokemon_entity.lon,
-            pokemon_entity.pokemon.title,
+            pokemon_entity.pokemon.title_ru,
             request.build_absolute_uri(pokemon_entity.pokemon.image.url),
         )
 
@@ -79,7 +79,10 @@ def show_pokemon(request, pokemon_id):
             "pokemon": {
                 "pokemon_id": pokemon.id,
                 "img_url": request.build_absolute_uri(pokemon.image.url),
-                "title_ru": pokemon.title,
+                "title_ru": pokemon.title_ru,
+                "title_en": pokemon.title_en,
+                "title_jp": pokemon.title_jp,
+                "description": pokemon.description,
             },
         },
     )

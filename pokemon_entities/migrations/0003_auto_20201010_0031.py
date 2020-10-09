@@ -6,32 +6,32 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pokemon_entities', '0002_auto_20201009_0028'),
+        ("pokemon_entities", "0002_auto_20201009_0028"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='pokemon',
-            name='title',
+            model_name="pokemon",
+            name="title",
         ),
         migrations.AddField(
-            model_name='pokemon',
-            name='description',
-            field=models.TextField(default=''),
+            model_name="pokemon",
+            name="description",
+            field=models.TextField(default=""),
         ),
         migrations.AddField(
-            model_name='pokemon',
-            name='title_en',
-            field=models.CharField(default='', max_length=200),
+            model_name="pokemon",
+            name="title_en",
+            field=models.CharField(default="", max_length=200),
         ),
         migrations.AddField(
-            model_name='pokemon',
-            name='title_jp',
-            field=models.CharField(default='', max_length=200),
+            model_name="pokemon",
+            name="title_jp",
+            field=models.CharField(default="", max_length=200),
         ),
         migrations.AddField(
-            model_name='pokemon',
-            name='title_ru',
-            field=models.CharField(default='', max_length=200),
+            model_name="pokemon",
+            name="title_ru",
+            field=models.CharField(default="", max_length=200),
         ),
     ]
