@@ -7,17 +7,24 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('pokemon_entities', '0008_auto_20201010_1201'),
+        ("pokemon_entities", "0008_auto_20201010_1201"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='pokemon',
-            name='next_evolution',
+            model_name="pokemon",
+            name="next_evolution",
         ),
         migrations.AlterField(
-            model_name='pokemon',
-            name='previous_evolution',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='next_evolutions', to='pokemon_entities.Pokemon', verbose_name='предок'),
+            model_name="pokemon",
+            name="previous_evolution",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="next_evolutions",
+                to="pokemon_entities.Pokemon",
+                verbose_name="предок",
+            ),
         ),
     ]

@@ -64,7 +64,9 @@ def show_pokemon(request, pokemon_id):
         )
     pokemon_dict = get_dict_from_pokemon(pokemon, request)
     if pokemon.previous_evolution:
-        pokemon_dict["previous_evolution"] = get_dict_from_pokemon(pokemon.previous_evolution, request)    
+        pokemon_dict["previous_evolution"] = get_dict_from_pokemon(
+            pokemon.previous_evolution, request
+        )
     if pokemon.next_evolutions.all():
         next = get_dict_from_pokemon(pokemon.next_evolutions.all()[0], request)
         pokemon_dict["next_evolution"] = next
@@ -78,12 +80,12 @@ def show_pokemon(request, pokemon_id):
     )
 
 
-def get_dict_from_pokemon(pokemon, request):        
+def get_dict_from_pokemon(pokemon, request):
     return {
         "pokemon_id": pokemon.id,
         "img_url": request.build_absolute_uri(pokemon.image.url),
         "title_ru": pokemon.title_ru,
         "title_en": pokemon.title_en,
         "title_jp": pokemon.title_jp,
-        "description": pokemon.description,        
+        "description": pokemon.description,
     }
