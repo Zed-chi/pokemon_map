@@ -5,15 +5,13 @@ class Pokemon(models.Model):
     """ Досье на покемона """
 
     title_en = models.CharField(
-        max_length=200,
-        null=True,
+        max_length=200,        
         blank=True,
         default="",
         verbose_name="Имя вида по-английски",
     )
     title_jp = models.CharField(
         max_length=200,
-        null=True,
         blank=True,
         default="",
         verbose_name="Имя вида по-японски",
@@ -22,7 +20,7 @@ class Pokemon(models.Model):
         max_length=200, default="", verbose_name="Имя вида по-русски"
     )
     description = models.TextField(
-        default="", verbose_name="Описание вида", null=True, blank=True
+        default="", verbose_name="Описание вида", blank=True
     )
     previous_evolution = models.ForeignKey(
         "self",
