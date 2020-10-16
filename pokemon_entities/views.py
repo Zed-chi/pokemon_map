@@ -50,16 +50,15 @@ def show_all_pokemons(request):
 
 def show_pokemon(request, pokemon_id):
     pokemon = get_object_or_404(Pokemon, id=pokemon_id)
-
-    entities = PokemonEntity.objects.filter(pokemon__id=pokemon_id)
+    entities = pokemon.entities.all()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     for pokemon_entity in entities:
         add_pokemon(
             folium_map,
             pokemon_entity.lat,
             pokemon_entity.lon,
-            pokemon_entity.pokemon.title_ru,
-            request.build_absolute_uri(pokemon_entity.pokemon.image.url),
+            pokemon.title_ru,
+            request.build_absolute_uri(pokemon.image.url),
         )
     pokemon_dict = get_dict_from_pokemon(pokemon, request)
     if pokemon.previous_evolution:
