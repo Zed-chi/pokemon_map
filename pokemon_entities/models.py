@@ -1,6 +1,6 @@
 from django.db import models
 
-# your models here
+
 class Pokemon(models.Model):
     """ Досье на покемона """
 
