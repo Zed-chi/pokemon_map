@@ -3,7 +3,7 @@ import json
 
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404
-from .models import PokemonEntity, Pokemon
+from .models import PokemonEntity, Pokemon, PokemonElementType
 
 
 MOSCOW_CENTER = [55.751244, 37.618423]
