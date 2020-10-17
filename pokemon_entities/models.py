@@ -79,6 +79,13 @@ class PokemonElementType(models.Model):
         verbose_name="Название Стихии",
     )
     pokemon = models.ManyToManyField("Pokemon", related_name="elements")
+    image = models.ImageField(
+        upload_to="./images/thumbs",
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name="Изображение",
+    )
 
     def __str__(self):
         return self.title
