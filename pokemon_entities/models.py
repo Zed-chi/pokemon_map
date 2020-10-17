@@ -78,7 +78,7 @@ class PokemonElementType(models.Model):
         blank=True,
         verbose_name="Название Стихии",
     )
-    pokemon = models.ManyToManyField("Pokemon")
+    pokemon = models.ManyToManyField("Pokemon", related_name="elements")
 
     def __str__(self):
         return self.title
