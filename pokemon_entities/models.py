@@ -86,6 +86,7 @@ class PokemonElementType(models.Model):
         blank=True,
         verbose_name="Изображение",
     )
+    strong_against = models.ManyToManyField("self", verbose_name="Используется против", symmetrical=False)
 
     def __str__(self):
         return self.title
